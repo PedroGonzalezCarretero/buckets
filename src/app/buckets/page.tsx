@@ -13,8 +13,11 @@ export default async function Buckets() {
 
   return (
     <main className="flex flex-1 flex-col gap-4 p-4 lg:gap-6 lg:p-6">
-      <div className="flex items-center">
+      <div className="flex items-center justify-between">
         <h1 className="text-lg font-semibold md:text-2xl">Buckets</h1>
+        <CustomDialog variant={"outline"} cta="New Bucket">
+          <NewBucketForm />
+        </CustomDialog>
       </div>
       {buckets?.length == 0 ? (
         <div
@@ -34,7 +37,7 @@ export default async function Buckets() {
           </div>
         </div>
       ) : (
-        <ul className="grid grid-cols-3">
+        <ul className="grid grid-cols-3 gap-3">
           {buckets?.map((bucket) => (
             <Link
               href={`/buckets/${bucket.id}`}

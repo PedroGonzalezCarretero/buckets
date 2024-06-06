@@ -59,7 +59,7 @@ const NewTaskForm = ({ bucketId }: Props) => {
         throw new Error("Failed to create bucket");
       }
 
-      window.location.href = "/buckets";
+      window.location.reload();
     } catch (error) {
       console.error(error);
     }
@@ -70,9 +70,7 @@ const NewTaskForm = ({ bucketId }: Props) => {
       <DialogHeader>
         <DialogTitle>Create Task</DialogTitle>
       </DialogHeader>
-      {/* <DialogDescription>
-            <p>Fill in the form below to create a new restaurant.</p>
-         </DialogDescription> */}
+
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
           <FormField
@@ -88,9 +86,6 @@ const NewTaskForm = ({ bucketId }: Props) => {
                     value={field.value || ""}
                   />
                 </FormControl>
-                {/* <FormDescription>
-                                    
-                                </FormDescription> */}
                 <FormMessage />
               </FormItem>
             )}

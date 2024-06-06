@@ -28,7 +28,7 @@ export default async function Buckets() {
             {/* <p className='text-sm text-muted-foreground'>
                   You can start selling as soon as you add a product.
                </p> */}
-            <CustomDialog variant={"default"}>
+            <CustomDialog variant={"default"} cta="New Bucket List">
               <NewBucketForm />
             </CustomDialog>
           </div>

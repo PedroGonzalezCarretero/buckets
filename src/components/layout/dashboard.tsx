@@ -34,34 +34,16 @@ export function Dashboard({ children }: { children: ReactNode }) {
                   <span className='sr-only'>Buckets</span>
                </Link>
                <Link
-                  href='#'
+                  href='/users'
                   className='text-foreground transition-colors hover:text-foreground'
                >
-                  Dashboard
+                  Users
                </Link>
                <Link
-                  href='#'
+                  href='/buckets'
                   className='text-muted-foreground transition-colors hover:text-foreground'
                >
-                  Orders
-               </Link>
-               <Link
-                  href='#'
-                  className='text-muted-foreground transition-colors hover:text-foreground'
-               >
-                  Products
-               </Link>
-               <Link
-                  href='#'
-                  className='text-muted-foreground transition-colors hover:text-foreground'
-               >
-                  Customers
-               </Link>
-               <Link
-                  href='#'
-                  className='text-muted-foreground transition-colors hover:text-foreground'
-               >
-                  Analytics
+                  Buckets
                </Link>
             </nav>
             <Sheet>
@@ -84,32 +66,14 @@ export function Dashboard({ children }: { children: ReactNode }) {
                         <PaintBucketIcon className='h-6 w-6' />
                         <span className='sr-only'>Buckets</span>
                      </Link>
-                     <Link href='#' className='hover:text-foreground'>
-                        Dashboard
+                     <Link href='/users' className='hover:text-foreground'>
+                        Users
                      </Link>
                      <Link
-                        href='#'
+                        href='/buckets'
                         className='text-muted-foreground hover:text-foreground'
                      >
-                        Orders
-                     </Link>
-                     <Link
-                        href='#'
-                        className='text-muted-foreground hover:text-foreground'
-                     >
-                        Products
-                     </Link>
-                     <Link
-                        href='#'
-                        className='text-muted-foreground hover:text-foreground'
-                     >
-                        Customers
-                     </Link>
-                     <Link
-                        href='#'
-                        className='text-muted-foreground hover:text-foreground'
-                     >
-                        Analytics
+                        Buckets
                      </Link>
                   </nav>
                </SheetContent>

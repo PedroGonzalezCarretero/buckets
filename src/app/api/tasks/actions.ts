@@ -2,7 +2,7 @@
 
 import { db } from "@/db";
 import { tasks, InsertTask } from "@/schema";
-import { eq } from "drizzle-orm";
+import { eq, SQL } from "drizzle-orm";
 
 export const getTasksByBucketId = async (id: number) => {
   // 3 seconds delay
@@ -17,6 +17,27 @@ export const getTasksByBucketId = async (id: number) => {
     console.log(error);
   }
 };
+
+export const updateTaskStatus = async (id: number, status: SQL<unknown> | "todo" | "in-progress" | "done" | undefined) => {
+  try {
+    const result = await db
+      .update(tasks)
+      .set({ status })
+      .where(eq(tasks.id, id));
+    return result;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export const deleteTask = async (id: number) => {
+  try {
+    const result = await db.delete(tasks).where(eq(tasks.id, id));
+    return result;
+  } catch (error) {
+    console.log(error);
+  }
+}
 
 export const createTask = async (data: InsertTask) => {
   try {

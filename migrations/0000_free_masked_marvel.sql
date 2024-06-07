@@ -1,6 +1,13 @@
+DO $$ BEGIN
+ CREATE TYPE "public"."taskStatus" AS ENUM('todo', 'in-progress', 'done');
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "bucket_lists_table" (
 	"id" serial PRIMARY KEY NOT NULL,
 	"name" text NOT NULL,
+	"description" text,
 	"creator_id" integer NOT NULL,
 	"created_at" timestamp DEFAULT now() NOT NULL,
 	"updated_at" timestamp
@@ -18,7 +25,7 @@ CREATE TABLE IF NOT EXISTS "tasks_table" (
 	"bucket_list_id" integer NOT NULL,
 	"description" text NOT NULL,
 	"assigned_to" integer NOT NULL,
-	"completed" boolean DEFAULT false NOT NULL,
+	"taskStatus" "taskStatus",
 	"created_at" timestamp DEFAULT now() NOT NULL,
 	"updated_at" timestamp
 );

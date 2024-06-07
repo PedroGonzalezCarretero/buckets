@@ -27,11 +27,15 @@ interface Props {
 }
 
 const NewTaskForm = ({ bucketId }: Props) => {
+
+  const VALUES = ["todo", "in-progress", "done"] as const;
+const StatusEnum = z.enum(VALUES);
+
   const formSchema = z.object({
     description: z.string().min(2, {
       message: "Task name must be at least 2 characters.",
     }),
-    completed: z.boolean().optional(),
+    status: StatusEnum,
     bucketListId: z.number(),
     assignedTo: z.number(),
     created_at: z.date().optional(),
@@ -39,11 +43,12 @@ const NewTaskForm = ({ bucketId }: Props) => {
   });
 
   // 1. Define your form.
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       description: "",
-      completed: false,
+      status: 'todo',
       bucketListId: bucketId,
       assignedTo: 1,
       created_at: new Date(),

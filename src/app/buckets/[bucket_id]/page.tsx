@@ -54,22 +54,17 @@ export default async function BucketPage({
             </div>
             <hr className="mb-7" />
             <CardContent>
-              <h4 className="mb-3 text-xl">Tasks</h4>
               {bucketTasks ? (
                 <div>
-                  <KanbanBoard />
+                  <KanbanBoard tasksData={bucketTasks}/>
                 </div>
               ) : (
                 <div>
-                  <KanbanBoard />
+                  No tasks found for this bucket
                 </div>
               )}
             </CardContent>
-            <CardFooter>
-              <div className="text-xs text-muted-foreground">
-                Showing <strong>1-10</strong> of <strong>32</strong> products
-              </div>
-            </CardFooter>
+            
           </Card>
         </TabsContent>
       </Tabs>

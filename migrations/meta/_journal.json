@@ -5,29 +5,8 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1717349134000,
-      "tag": "0000_outgoing_leper_queen",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "7",
-      "when": 1717686899609,
-      "tag": "0001_familiar_lily_hollister",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "7",
-      "when": 1717712853999,
-      "tag": "0002_fat_zzzax",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "7",
-      "when": 1717713056182,
-      "tag": "0003_orange_richard_fisk",
+      "when": 1717770024892,
+      "tag": "0000_free_masked_marvel",
       "breakpoints": true
     }
   ]

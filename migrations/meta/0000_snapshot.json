@@ -1,5 +1,5 @@
 {
-  "id": "25b340d4-3315-425e-9c8a-b4c145267910",
+  "id": "58f51db5-f24a-4e95-8738-b872a4b1d26b",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -19,6 +19,12 @@
           "type": "text",
           "primaryKey": false,
           "notNull": true
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
         },
         "creator_id": {
           "name": "creator_id",
@@ -149,12 +155,12 @@
           "primaryKey": false,
           "notNull": true
         },
-        "completed": {
-          "name": "completed",
-          "type": "boolean",
+        "taskStatus": {
+          "name": "taskStatus",
+          "type": "taskStatus",
+          "typeSchema": "public",
           "primaryKey": false,
-          "notNull": true,
-          "default": false
+          "notNull": false
         },
         "created_at": {
           "name": "created_at",
@@ -251,7 +257,17 @@
       }
     }
   },
-  "enums": {},
+  "enums": {
+    "public.taskStatus": {
+      "name": "taskStatus",
+      "schema": "public",
+      "values": [
+        "todo",
+        "in-progress",
+        "done"
+      ]
+    }
+  },
   "schemas": {},
   "_meta": {
     "columns": {},

@@ -7,6 +7,23 @@ import { cva } from "class-variance-authority";
 import { GripVertical } from "lucide-react";
 import { Badge } from "../ui/badge";
 import { ColumnId } from "./KanbanBoard";
+import { SelectTask } from "@/schema";
+import {DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "../ui/dropdown-menu";
+  import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
+import { deleteTask } from "@/app/api/tasks/actions";
 
 export interface Task {
   id: UniqueIdentifier;
@@ -15,15 +32,15 @@ export interface Task {
 }
 
 interface TaskCardProps {
-  task: Task;
+  task: SelectTask;
   isOverlay?: boolean;
 }
 
 export type TaskType = "Task";
 
 export interface TaskDragData {
-  type: TaskType;
-  task: Task;
+  type: TaskType; 
+  task: SelectTask;
 }
 
 export function TaskCard({ task, isOverlay }: TaskCardProps) {
@@ -59,6 +76,18 @@ export function TaskCard({ task, isOverlay }: TaskCardProps) {
     },
   });
 
+
+  const handleDeleteTask = async (taskId: number) => {
+    try {
+      console.log(taskId)
+      await deleteTask(taskId)
+
+      window.location.reload()
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return (
     <Card
       ref={setNodeRef}
@@ -67,7 +96,7 @@ export function TaskCard({ task, isOverlay }: TaskCardProps) {
         dragging: isOverlay ? "overlay" : isDragging ? "over" : undefined,
       })}
     >
-      <CardHeader className="space-between relative flex flex-row border-b-2 border-secondary px-3 py-3">
+      <CardHeader className="space-between relative flex flex-row border-secondary px-3 py-3">
         <Button
           variant={"ghost"}
           {...attributes}
@@ -77,13 +106,37 @@ export function TaskCard({ task, isOverlay }: TaskCardProps) {
           <span className="sr-only">Move task</span>
           <GripVertical />
         </Button>
-        <Badge variant={"outline"} className="ml-auto font-semibold">
-          Task
+        <p>{task.description}</p>
+        <Badge variant={`${task.status === 'done' ? 'default' : 'secondary'}`} className="ml-auto font-semibold">
+          {task.status}
         </Badge>
+        <DropdownMenu>
+          <DropdownMenuTrigger>
+            <svg className="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+              <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M6 12h.01m6 0h.01m5.99 0h.01"/>
+            </svg>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+            <DropdownMenuItem className="rounded-none">Editar</DropdownMenuItem>
+              <Dialog>
+    <DialogTrigger className="cursor-pointer hover:bg-accent w-full text-start rounded-full select-none items-center px-2 py-1.5 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50">Eliminar</DialogTrigger>
+  <DialogContent>
+    <DialogHeader>
+      <DialogTitle>Estas seguro?</DialogTitle>
+      
+                </DialogHeader>
+                
+                <DialogDescription>
+                  Esta accion no se puede deshacer
+                </DialogDescription>
+
+                <Button variant={'destructive'} onClick={() => handleDeleteTask(task.id)}>Delete</Button>
+  </DialogContent>
+</Dialog> 
+          </DropdownMenuContent>
+        </DropdownMenu>
       </CardHeader>
-      <CardContent className="whitespace-pre-wrap px-3 pb-6 pt-3 text-left">
-        {task.content}
-      </CardContent>
+      
     </Card>
   );
 }

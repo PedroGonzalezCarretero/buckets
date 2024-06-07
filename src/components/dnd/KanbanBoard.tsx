@@ -128,7 +128,7 @@ export function KanbanBoard({tasksData} : Props) {
         } in column ${column?.title}`;
       }
     },
-    async onDragEnd({ active, over }) {
+    onDragEnd({ active, over }) {
       if (!hasDraggableData(active) || !hasDraggableData(over)) {
         pickedUpTaskColumn.current = null;
         return;
@@ -153,14 +153,19 @@ export function KanbanBoard({tasksData} : Props) {
           over.data.current.task.status,
         );
         if (over.data.current.task.status !== pickedUpTaskColumn.current) {
-          await updateTaskStatus(
-            active.data.current.task.id,
-            over.data.current.task.status,
-          );
-          return `Task was dropped into column ${column?.title} in position ${
-            taskPosition + 1
-          } of ${tasksInColumn.length}`;
-        }
+      try {
+        updateTaskStatus(
+          active.data.current.task.id,
+          over.data.current.task.status
+        );
+        return `Task was dropped into column ${column?.title} in position ${
+          taskPosition + 1
+        } of ${tasksInColumn.length}`;
+      } catch (error) {
+        console.error('Error updating task status:', error);
+        // Handle the error appropriately in your UI
+      }
+    }
         return `Task was dropped into position ${taskPosition + 1} of ${
           tasksInColumn.length
         } in column ${column?.title}`;
